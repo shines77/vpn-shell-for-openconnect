@@ -20,6 +20,10 @@ A shell script for openconnect which allows:
 
 ## Last modifications
 
+This code is modified by repository of `sorinipate`'s : [\[vpn-up-for-openconnect\]](https://github.com/sorinipate/vpn-up-for-openconnect).
+
+The following modifications have been made:
+
 - reformat all code style, refactor some variable name
 - reformat all the space characters to [Tab] character, although I prefer to use space characters
 - change the path of the PID file and log file, like "/run/xxxxx.pid", "/tmp/xxxxx.log"
