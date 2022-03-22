@@ -1,0 +1,38 @@
+### These files should get ignored no matter where they appear.
+
+# Ignore compiled object files
+*.slo
+*.lo
+*.o
+*.obj
+
+# Ignore compiled dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Ignore executables
+*.exe
+*.out
+*.app
+
+# Editors leave these lying around
+\#*\#
+.#*
+*~
+*.swp
+
+# Ignore thumbnails and icon cache files created by Windows
+Thumbs.db
+ehthumbs.db
+
+# Ignore some files on Windows
+.DS_Store*
+Icon?
+
+# Ignore log files or save files
+*.save
+
+# Ignore Zip or Rar files
+*.zip
+*.rar
