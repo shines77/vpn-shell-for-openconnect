@@ -66,9 +66,11 @@ sudo apt-get install openconnect
 
 ### 2. Get this script
 
-* Pull this repository use git from [here](https://github.com/shines77/vpn-shell-for-openconnect).
+Two ways:
 
-* Or [download the latest release](https://github.com/shines77/vpn-shell-for-openconnect/releases/download/v1.0-alpha/vpn-shell-for-openconnect-master.zip), and upload it to your server, then extract it.
+- Pull this repository use git from [here](https://github.com/shines77/vpn-shell-for-openconnect).
+
+- Or [download the latest release](https://github.com/shines77/vpn-shell-for-openconnect/releases/download/v1.0-alpha/vpn-shell-for-openconnect-master.zip), and upload it to your server, then extract it.
 
 ### 3. Install this script
 
@@ -80,7 +82,7 @@ sudo install.sh <folder_install_to>
 
 Example:
 
-```shell
+```bash
 # Install to system bin folder
 sudo install.sh /usr/bin
 
@@ -90,11 +92,11 @@ or
 sudo install.sh ~/bin
 ```
 
-Note: The <folder_install_to> must be existed.
+Note: The <folder_install_to> must be existed. If don't specified <folder_install_to>, the default value is "`~/bin`".
 
 The installation steps are as follows:
 
-```shell
+```bash
 # Your script root folder
 cd /xxxxxx/yyyyy/vpn-shell-for-openconnect
 
@@ -132,7 +134,9 @@ open-vpn-cmd restart
 open-vpn-cmd status
 ```
 
-## Run VPN shell script
+## Original usage
+
+### Run VPN shell script
 
 1. Please make sure you have `openconnect` installed before moving on. Follow the instructions [here](https://formulae.brew.sh/formula/openconnect).
 
