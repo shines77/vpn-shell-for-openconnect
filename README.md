@@ -24,10 +24,11 @@ A shell script for openconnect which allows:
 - reformat all the space characters to [Tab] character, although I prefer to use space characters
 - change the path of the PID file and log file, like "/run/xxxxx.pid", "/tmp/xxxxx.log"
 - split VPN server configuration to "open-vpn-conf.sh" file
+- added "install.sh" shell script
 
 **Last modified**: `shines77` / `2022-03-22`
 
-## Sample configuration section
+## Sample VPN configuration
 
 Edit your configurtion file:
 
@@ -52,9 +53,9 @@ export VPN1_PASSWD="MyPassword"
 export VPN1_SERVER_CERTIFICATE="SHA1-OtherCharachters"
 ```
 
-## How to use
+## How to install and use
 
-Here just demonstrate how to use this code in Ubuntu
+Here just demonstrate how to use this script in Ubuntu server.
 
 ### 1. Install openconnect
 
@@ -63,7 +64,73 @@ sudo apt-get update
 sudo apt-get install openconnect
 ```
 
-### 2. Install openconnect
+### 2. Get this script
+
+* Pull this repository use git from [here](https://github.com/shines77/vpn-shell-for-openconnect).
+
+* Or [download the latest release](https://github.com/shines77/vpn-shell-for-openconnect/releases/download/v1.0-alpha/vpn-shell-for-openconnect-master.zip), and upload it to your server, then extract it.
+
+### 3. Install this script
+
+Use this command to install, format is:
+
+```shell
+sudo install.sh <folder_install_to>
+```
+
+Example:
+
+```shell
+# Install to system bin folder
+sudo install.sh /usr/bin
+
+or
+
+# Install to current user's bin folder
+sudo install.sh ~/bin
+```
+
+Note: The <folder_install_to> must be existed.
+
+The installation steps are as follows:
+
+```shell
+# Your script root folder
+cd /xxxxxx/yyyyy/vpn-shell-for-openconnect
+
+sudo cp open-vpn-cmd.sh /usr/bin/open-vpn-cmd.sh
+sudo cp open-vpn-conf.sh /usr/bin/open-vpn-conf.sh
+
+sudo chmod +x /usr/bin/open-vpn-cmd.sh
+
+alias open-vpn-cmd='/usr/bin/open-vpn-cmd.sh'
+```
+
+### 4. VPN usage
+
+#### 4.1. Connect VPN
+
+```shell
+open-vpn-cmd start
+```
+
+#### 4.2. Disconnect VPN
+
+```shell
+open-vpn-cmd stop
+```
+
+#### 4.3. Restart VPN
+
+```shell
+open-vpn-cmd restart
+```
+
+#### 4.4. Query VPN status
+
+```shell
+open-vpn-cmd status
+```
 
 ## Run VPN shell script
 
@@ -71,7 +138,7 @@ sudo apt-get install openconnect
 
 2. [Download the latest release](https://github.com/shines77/vpn-shell-for-openconnect/releases/download/v1.0-alpha/vpn-shell-for-openconnect-master.zip).
 
-3. Copy the "`open-vpn-cmd.sh`" and "`open-vpn-conf.sh`" file to the "`\usr\bin`" folder.
+3. Copy the "`open-vpn-cmd.sh`" and "`open-vpn-conf.sh`" file to the "`~/bin`" folder.
 
 4. Update the "`open-vpn-cmd.sh`" file with the appropiate VPN connection information as shown above.
 

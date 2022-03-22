@@ -1,6 +1,21 @@
 #!/bin/bash
 
 #
+# Author: Sorin-Doru Ipate, Since: 2021-03-18
+# Edited by: Mohammad Amin Dadgar
+# 
+# Last edited by: GuoXiongHui(shines77), Since: 2022-03-22
+#
+# Copyright	(c)	Sorin-Doru Ipate & GuoXiongHui(shines77)
+#
+
+#
+# From: https://github.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
+#
+# From:	https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
+#
+
+#
 # VPN server configuration
 #
 
