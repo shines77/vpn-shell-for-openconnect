@@ -81,7 +81,7 @@ Two ways:
 Use this command to install, format is:
 
 ```shell
-sudo install.sh <folder_install_to>
+install.sh <folder_install_to>
 ```
 
 Example:
@@ -89,12 +89,12 @@ Example:
 ```bash
 # Install to current user's bin folder
 sudo mkdir ~/bin
-sudo install.sh ~/bin
+sudo ./install.sh ~/bin
 
 or
 
 # Install to system bin folder
-sudo install.sh /usr/bin
+sudo ./install.sh /usr/bin
 ```
 
 Note: The path of <folder_install_to> must be existed. If don't specified <folder_install_to>, the default value is "`~/bin`".

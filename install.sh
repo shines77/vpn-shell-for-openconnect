@@ -21,8 +21,8 @@ else
 	Install_To_Folder="~/bin"
 fi
 
-if [ -f "${Install_To_Folder}" ]; then
-	sudo cp ${PWD}/open-vpn-connect.sh ${Install_To_Folder}/open-vpn-cmd.sh
+if [ -d "${Install_To_Folder}" ]; then
+	sudo cp ${PWD}/open-vpn-vpn-cmd.sh ${Install_To_Folder}/open-vpn-cmd.sh
 	sudo cp ${PWD}/open-vpn-conf.sh ${Install_To_Folder}/open-vpn-conf.sh
 
 	sudo chmod +x ${Install_To_Folder}/open-vpn-cmd.sh
