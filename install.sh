@@ -32,10 +32,12 @@ if [ -d "${Install_To_Folder}" ]; then
 
 	alias open-vpn-cmd='${Install_To_Folder}/open-vpn-cmd.sh'
 
+	set +x
 	echo "----------------------------------------------------------------------------------"
 	echo "[vpn-shell-for-openconnect]: Install success. already install to ${Install_To_Folder} folder."
 	echo "----------------------------------------------------------------------------------"
 else
+	set +x
 	echo "----------------------------------------------------------------------------------"
 	echo "[vpn-shell-for-openconnect]: Install failed, ${Install_To_Folder} folder is not existed."
 	echo "----------------------------------------------------------------------------------"
