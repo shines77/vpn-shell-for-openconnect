@@ -47,7 +47,7 @@ echo "Logs stored in ${LOG_FILE} ..."
 #
 
 # --background	 Continue in background	after startup
-BACKGROUND=true
+BACKGROUND=false
 
 #
 # Include VPN server configuration file
@@ -139,25 +139,44 @@ function connect() {
 	esac
 		
 	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..."
-	
 
 	if [ "${VPN_SERVER_CERTIFICATE}" = "" ]; then
 		echo "Connecting without server certificate ..."
-		if [ "$BACKGROUND" = true ]; then
-			echo "Running the ${VPN_NAME} in background ..."
-			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+		if [ "${VPN_GROUP}" = "" ]; then
+			if [ "$BACKGROUND" = true ]; then
+				echo "Running the ${VPN_NAME} in background ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			else
+				echo "Running the ${VPN_NAME} ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			fi
 		else
-			echo "Running the ${VPN_NAME} ..."
-			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			if [ "$BACKGROUND" = true ]; then
+				echo "Running the ${VPN_NAME} in background ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			else
+				echo "Running the ${VPN_NAME} ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			fi
 		fi
 	else
 		echo "Connecting with certificate ..."
-		if [ "$BACKGROUND" = true ]; then
-			echo "Running the ${VPN_NAME} in background ..."
-			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+		if [ "${VPN_GROUP}" = "" ]; then
+			if [ "$BACKGROUND" = true ]; then
+				echo "Running the ${VPN_NAME} in background ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			else
+				echo "Running the ${VPN_NAME} ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			fi
 		else
-			echo "Running the ${VPN_NAME} ..."
-			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			if [ "$BACKGROUND" = true ]; then
+				echo "Running the ${VPN_NAME} in background ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			else
+				echo "Running the ${VPN_NAME} ..."
+				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			fi
 		fi
 	fi
 
