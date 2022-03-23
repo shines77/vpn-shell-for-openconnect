@@ -55,12 +55,12 @@ BACKGROUND=true
 source "${PROGRAM_DIR}"/open-vpn-conf.sh
 
 function start(){
-	if ! is_network_available then
+	if ! is_network_available; then
 		printf "Network is not available! Please check your internet connection.\n"
 		exit 1
 	fi
 
-	if is_vpn_running then
+	if is_vpn_running; then
 		printf "OpenConnect VPN is already running ...\n"
 		exit 1
 	fi
@@ -103,7 +103,7 @@ function start(){
 				;; 
 		esac
 
-		if is_vpn_running then
+		if is_vpn_running; then
 			printf "OpenConnect VPN is connected ...\n"
 			print_current_ip_address
 			break
@@ -170,7 +170,7 @@ function status() {
 }
 
 function stop()	{
-	if is_vpn_running then
+	if is_vpn_running; then
 		echo "OpenConnect VPN is running ..."
 		echo "Removing ${PID_FILE} ..."
 		
