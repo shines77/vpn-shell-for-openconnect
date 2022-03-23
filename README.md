@@ -87,16 +87,17 @@ sudo install.sh <folder_install_to>
 Example:
 
 ```bash
-# Install to system bin folder
-sudo install.sh /usr/bin
+# Install to current user's bin folder
+sudo mkdir ~/bin
+sudo install.sh ~/bin
 
 or
 
-# Install to current user's bin folder
-sudo install.sh ~/bin
+# Install to system bin folder
+sudo install.sh /usr/bin
 ```
 
-Note: The <folder_install_to> must be existed. If don't specified <folder_install_to>, the default value is "`~/bin`".
+Note: The path of <folder_install_to> must be existed. If don't specified <folder_install_to>, the default value is "`~/bin`".
 
 The installation steps are as follows:
 
