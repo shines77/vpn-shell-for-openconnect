@@ -6,14 +6,14 @@
 # 
 # Last edited by: GuoXiongHui(shines77), Since: 2022-03-22
 #
-# Copyright	(c)	Sorin-Doru Ipate & GuoXiongHui(shines77)
+# Copyright	(c) Sorin-Doru Ipate & GuoXiongHui(shines77)
 #
 
 #
 # From: https://github.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
 # From: https://gitee.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
 #
-# From:	https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
+# From: https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
 #
 
 set -x
@@ -30,15 +30,15 @@ if [ -d "${Install_To_Folder}" ]; then
 
 	sudo chmod +x ${Install_To_Folder}/open-vpn-cmd.sh
 
-	alias open-vpn-cmd='${Install_To_Folder}/open-vpn-cmd.sh'
+	alias open-vpn-cmd="${Install_To_Folder}/open-vpn-cmd.sh"
 
 	set +x
-	echo "----------------------------------------------------------------------------------"
+	echo "------------------------------------------------------------------------------------"
 	echo "[vpn-shell-for-openconnect]: Install success. already install to ${Install_To_Folder} folder."
-	echo "----------------------------------------------------------------------------------"
+	echo "------------------------------------------------------------------------------------"
 else
 	set +x
-	echo "----------------------------------------------------------------------------------"
+	echo "------------------------------------------------------------------------------------"
 	echo "[vpn-shell-for-openconnect]: Install failed, ${Install_To_Folder} folder is not existed."
-	echo "----------------------------------------------------------------------------------"
+	echo "------------------------------------------------------------------------------------"
 fi

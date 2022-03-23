@@ -6,22 +6,22 @@
 # 
 # Last edited by: GuoXiongHui(shines77), Since: 2022-03-22
 #
-# Copyright	(c)	Sorin-Doru Ipate & GuoXiongHui(shines77)
+# Copyright	(c) Sorin-Doru Ipate & GuoXiongHui(shines77)
 #
 
 #
 # From: https://github.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
 # From: https://gitee.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
 #
-# From:	https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
+# From: https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
 #
 
-# resolve $PROGRAM_SOURCE until the file is no longer a symlink
+# Resolve $PROGRAM_SOURCE until the file is no longer a symlink
 PROGRAM_SOURCE="$0"
 while [ -h "$PROGRAM_SOURCE" ]; do
     PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
     PROGRAM_SOURCE="$(readlink "$PROGRAM_SOURCE")"
-    # if $PROGRAM_SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    # If $PROGRAM_SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
     [[ $PROGRAM_SOURCE != /*  ]] && PROGRAM_SOURCE="$DIR/$PROGRAM_SOURCE"
 done
 PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
@@ -37,10 +37,10 @@ echo "Process ID (PID) stored in "${PID_FILE}" ..."
 LOG_FILE="/tmp/${PROGRAM_NAME}.log"
 echo "Logs stored in ${LOG_FILE} ..."
 
-echo "PROGRAM_SOURCE: ${0}"
-echo "PROGRAM_DIR: ${PROGRAM_DIR}"
-echo "PROGRAM_NAME: ${PROGRAM_NAME}"
-echo "PWD: ${PWD}"
+# echo "PROGRAM_SOURCE: ${0}"
+# echo "PROGRAM_DIR: ${PROGRAM_DIR}"
+# echo "PROGRAM_NAME: ${PROGRAM_NAME}"
+# echo "PWD: ${PWD}"
 
 #
 # OPTIONS
@@ -55,17 +55,17 @@ BACKGROUND=true
 source "${PROGRAM_DIR}"/open-vpn-conf.sh
 
 function start(){
-	if [ ! is_network_available	]; then	
-		printf "Network	is not available! Please check your	internet connection.\n"
+	if [ ! is_network_available	]; then
+		printf "Network is not available! Please check your internet connection.\n"
 		exit 1
 	fi
 
 	if [ is_vpn_running	]; then
-		printf "OpenConnect	VPN	is already running ...\n"
+		printf "OpenConnect VPN is already running ...\n"
 		exit 1
 	fi
 
-	echo "Which	VPN	do you want	to connect to ?"
+	echo "Which VPN do you want to connect to ?"
 	options=("$VPN1_NAME" "$VPN2_NAME" "Quit")
 	select option in "${options[@]}"; do
 		case $option in
@@ -103,12 +103,12 @@ function start(){
 				;; 
 		esac
 
-		if [ is_vpn_running	]; then	
-			printf "OpenConnect	VPN	is connected ...\n"
+		if [ is_vpn_running	]; then
+			printf "OpenConnect VPN is connected ...\n"
 			print_current_ip_address
 			break
 		else
-			printf "OpenConnect	VPN	failed to connect!\n"
+			printf "OpenConnect VPN failed to connect!\n"
 		fi
 	done
 }
@@ -131,33 +131,33 @@ function connect() {
 			export VPN_PROTOCOL_DESCRIPTION="Juniper Network Connect"
 			;;
 		"gp")
-			export VPN_PROTOCOL_DESCRIPTION="Palo Alto Networks	(PAN) GlobalProtect	SSL	VPN"
+			export VPN_PROTOCOL_DESCRIPTION="Palo Alto Networks (PAN) GlobalProtect SSL VPN"
 			;;
 		"pulse")
 			export VPN_PROTOCOL_DESCRIPTION="Pulse Connect Secure SSL VPN"
 			;;
 	esac
 		
-	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using	${VPN_PROTOCOL_DESCRIPTION}	..."
+	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..."
 	
 
-	if [ ""${VPN_SERVER_CERTIFICATE}"" = ""	]; then
-		echo "Connecting without server	certificate	..."
+	if [ ""${VPN_SERVER_CERTIFICATE}"" = "" ]; then
+		echo "Connecting without server certificate ..."
 		if [ "$BACKGROUND" = true ]; then
-			echo "Running the ${VPN_NAME} in background	..."
-			echo "${VPN_PASSWD}" | sudo	openconnect	--VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}"	--authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file	"${PID_FILE}" >	"${LOG_FILE}" 2>&1
+			echo "Running the ${VPN_NAME} in background ..."
+			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 		else
 			echo "Running the ${VPN_NAME} ..."
-			echo "${VPN_PASSWD}" | sudo	openconnect	--VPN_PROTOCOL="${VPN_PROTOCOL}" -q	"${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin	--pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 		fi
 	else
 		echo "Connecting with certificate ..."
 		if [ "$BACKGROUND" = true ]; then
-			echo "Running the ${VPN_NAME} in background	..."
-			echo "${VPN_PASSWD}" | sudo	openconnect	--VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}"	--authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+			echo "Running the ${VPN_NAME} in background ..."
+			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 		else
 			echo "Running the ${VPN_NAME} ..."
-			echo "${VPN_PASSWD}" | sudo	openconnect	--VPN_PROTOCOL="${VPN_PROTOCOL}" -q	"${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin	--servercert="${VPN_SERVER_CERTIFICATE}" --pid-file	"${PID_FILE}" >	"${LOG_FILE}" 2>&1
+			echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 		fi
 	fi
 
@@ -165,42 +165,42 @@ function connect() {
 }
 
 function status() {
-	is_vpn_running && printf "OpenConnect VPN is running ...\n"	|| printf "OpenConnect VPN is stopped ...\n"
+	is_vpn_running && printf "OpenConnect VPN is running ...\n" || printf "OpenConnect VPN is stopped ...\n"
 	print_current_ip_address
 }
 
 function stop()	{
-	if [ is_vpn_running	]; then
+	if [ is_vpn_running ]; then
 		echo "OpenConnect VPN is running ..."
 		echo "Removing ${PID_FILE} ..."
 		
 		# kill -9 $(pgrep openconnect) > /dev/null 2>&1
-		local pid=$(cat	$PID_FILE)
-		kill -9	$pid > /dev/null 2>&1
-		rm -f $PID_FILE	> /dev/null	2>&1
+		local pid=$(cat $PID_FILE)
+		kill -9 $pid > /dev/null 2>&1
+		rm -f $PID_FILE	> /dev/null 2>&1
 	fi
 	
-	printf "OpenConnect	VPN	is disconnected!\n"
+	printf "OpenConnect VPN is disconnected!\n"
 	print_current_ip_address
 }
 
 function print_info() {
-	echo "Usage: $(basename	"$0") (start|stop|status|restart)"
+	echo "Usage: $(basename "$0") (start|stop|status|restart)"
 }
 
-function is_network_available()	{
-	ping -q	-c 1 -W	1 8.8.8.8 >	/dev/null 2>&1;
+function is_network_available() {
+	ping -q	-c 1 -W 1 8.8.8.8 > /dev/null 2>&1;
 }
 
 function is_vpn_running() {
-	test -f	"${PID_FILE}" && return	0
+	test -f "${PID_FILE}" && return 0
 	# local pid=$(cat $PID_FILE)
 	# kill -0 $pid > /dev/null 2>&1
 }
 
-function print_current_ip_address()	{
+function print_current_ip_address() {
 	local ip=$(dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com)
-	printf "Your IP	address	is:	${ip} \n"
+	printf "Your IP address is: ${ip} \n"
 }
 
 case "$1" in
