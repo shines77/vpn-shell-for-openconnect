@@ -54,6 +54,8 @@ BACKGROUND=false
 #
 source "${PROGRAM_DIR}"/open-vpn-conf.sh
 
+set -x
+
 function start(){
 	if ! is_network_available; then
 		printf "Network is not available! Please check your internet connection.\n"
@@ -145,18 +147,18 @@ function connect() {
 		if [ "${VPN_GROUP}" = "" ]; then
 			if [ "$BACKGROUND" = true ]; then
 				echo "Running the ${VPN_NAME} in background ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			else
 				echo "Running the ${VPN_NAME} ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			fi
 		else
 			if [ "$BACKGROUND" = true ]; then
 				echo "Running the ${VPN_NAME} in background ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			else
 				echo "Running the ${VPN_NAME} ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			fi
 		fi
 	else
@@ -164,18 +166,18 @@ function connect() {
 		if [ "${VPN_GROUP}" = "" ]; then
 			if [ "$BACKGROUND" = true ]; then
 				echo "Running the ${VPN_NAME} in background ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			else
 				echo "Running the ${VPN_NAME} ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			fi
 		else
 			if [ "$BACKGROUND" = true ]; then
 				echo "Running the ${VPN_NAME} in background ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			else
 				echo "Running the ${VPN_NAME} ..."
-				echo "${VPN_PASSWD}" | sudo openconnect --VPN_PROTOCOL="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
+				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file "${PID_FILE}" > "${LOG_FILE}" 2>&1
 			fi
 		fi
 	fi
