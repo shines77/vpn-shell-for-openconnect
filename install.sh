@@ -21,7 +21,8 @@ set -x
 if [ -n "${1}" ]; then
 	Install_To_Folder="${1}"
 else
-	Install_To_Folder="~/bin"
+	Install_To_Folder="${HOME}/bin"
+	sudo mkdir "${Install_To_Folder}"
 fi
 
 if [ -d "${Install_To_Folder}" ]; then
