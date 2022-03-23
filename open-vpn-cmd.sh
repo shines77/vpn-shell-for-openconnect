@@ -16,6 +16,16 @@
 # From:	https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
 #
 
+# resolve $PROGRAM_SOURCE until the file is no longer a symlink
+PROGRAM_SOURCE="$0"
+while [ -h "$PROGRAM_SOURCE" ]; do
+    PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
+    PROGRAM_SOURCE="$(readlink "$PROGRAM_SOURCE")"
+    # if $PROGRAM_SOURCE was a relative symlink, we need to resolve it relative to the path where the symlink file was located
+    [[ $PROGRAM_SOURCE != /*  ]] && PROGRAM_SOURCE="$DIR/$PROGRAM_SOURCE"
+done
+PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
+
 PROGRAM_NAME=$(basename	$0)
 echo "Starting ${PROGRAM_NAME} ..."
 
@@ -27,6 +37,11 @@ echo "Process ID (PID) stored in "${PID_FILE}" ..."
 LOG_FILE="/tmp/${PROGRAM_NAME}.log"
 echo "Logs stored in ${LOG_FILE} ..."
 
+echo "PROGRAM_SOURCE: ${0}"
+echo "PROGRAM_DIR: ${PROGRAM_DIR}"
+echo "PROGRAM_NAME: ${PROGRAM_NAME}"
+echo "PWD: ${PWD}"
+
 #
 # OPTIONS
 #
@@ -37,7 +52,7 @@ BACKGROUND=true
 #
 # Include VPN server configuration file
 #
-source ./open-vpn-conf.sh
+source "${PROGRAM_DIR}"/open-vpn-conf.sh
 
 function start(){
 	if [ ! is_network_available	]; then	
