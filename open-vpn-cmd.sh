@@ -141,7 +141,7 @@ function connect() {
 	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..."
 	
 
-	if [ ""${VPN_SERVER_CERTIFICATE}"" = "" ]; then
+	if [ "${VPN_SERVER_CERTIFICATE}" = "" ]; then
 		echo "Connecting without server certificate ..."
 		if [ "$BACKGROUND" = true ]; then
 			echo "Running the ${VPN_NAME} in background ..."
