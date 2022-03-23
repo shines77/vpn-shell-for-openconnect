@@ -16,7 +16,7 @@
 # From:	https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
 #
 
-set -v
+set -x
 
 if [ -n "${1}" ]; then
 	Install_To_Folder="${1}"
