@@ -11,6 +11,7 @@
 
 #
 # From: https://github.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
+# From: https://gitee.com/shines77/vpn-shell-for-openconnect/blob/master/open-vpn-cmd.sh
 #
 # From:	https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
 #
