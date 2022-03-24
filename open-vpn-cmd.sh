@@ -60,9 +60,9 @@ echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRI
 echo "`date`: open-vpn-cmd.sh start to running." >> "${SCRIPT_LOG_FILE}" 2>&1
 echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
 
-set -x
+# set -x
 
-function start(){
+function start() {
 	if ! is_network_available; then
 		printf "Network is not available! Please check your internet connection.\n"
 		exit 1
@@ -136,7 +136,8 @@ function connect() {
 			export VPN_PROTOCOL_DESCRIPTION="Cisco AnyConnect SSL VPN"
 			;;
 		"nc")
-			export VPN_PROTOCOL_DESCRIPTION="Juniper Network Connect"
+			export VPN_PROTOCOL_DESCRIPTION="Juniper Network Connec
+			t"
 			;;
 		"gp")
 			export VPN_PROTOCOL_DESCRIPTION="Palo Alto Networks (PAN) GlobalProtect SSL VPN"
@@ -149,6 +150,19 @@ function connect() {
 	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..."
 	echo "`date`: Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..." >> "${SCRIPT_LOG_FILE}" 2>&1
 
+	#
+	# Exclude your VPN client computer IP,
+	# OpenConnect can help us exclude the VPN server IP, so don't worry about it.
+	#
+	sudo ip route add 81.71.73.241 via 172.16.0.1 dev eth0 src 172.16.0.6
+	#
+	# Exclude your SSH terminal computer IP, if your computer IP is a Dynamic IP,
+	# you can exclude a network range like:
+	# 120.0.0.0/8, or 124.0.0.0/8
+	#
+	sudo ip route add 120.0.0.0/8 via 172.16.0.1 dev eth0 src 172.16.0.6
+	sudo ip route add 124.0.0.0/8 via 172.16.0.1 dev eth0 src 172.16.0.6
+
 	set -xv
 	if [ "${VPN_SERVER_CERTIFICATE}" = "" ]; then
 		echo "Connecting without server certificate ..."
@@ -157,24 +171,24 @@ function connect() {
 				echo "Running the ${VPN_NAME} in background ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			else
 				echo "Running the ${VPN_NAME} ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			fi
 		else
 			if [ "$BACKGROUND" = true ]; then
 				echo "Running the ${VPN_NAME} in background ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			else
 				echo "Running the ${VPN_NAME} ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			fi
 		fi
 	else
@@ -184,24 +198,24 @@ function connect() {
 				echo "Running the ${VPN_NAME} in background ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			else
 				echo "Running the ${VPN_NAME} ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			fi
 		else
 			if [ "$BACKGROUND" = true ]; then
 				echo "Running the ${VPN_NAME} in background ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" --background -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			else
 				echo "Running the ${VPN_NAME} ..."
 				set_add_xv
 				echo "${VPN_PASSWD}" | sudo openconnect --protocol="${VPN_PROTOCOL}" -q "${VPN_HOST}" --user="${VPN_USER}" --authgroup="${VPN_GROUP}" --passwd-on-stdin --servercert="${VPN_SERVER_CERTIFICATE}" --pid-file="${PID_FILE}" > "${LOG_FILE}" 2>&1
-				set_remove_v
+				set_remove_xv
 			fi
 		fi
 	fi
@@ -249,8 +263,8 @@ function set_add_xv() {
 	set -xv
 }
 
-function set_remove_v() {
-	set +v
+function set_remove_xv() {
+	set +xv
 	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
 	echo "`date`: openconnect start have done." >> "${SCRIPT_LOG_FILE}" 2>&1
 	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
@@ -273,7 +287,8 @@ function is_vpn_running() {
 }
 
 function print_current_ip_address() {
-	local ip=$(dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com)
+	# local ip=$(dig -4 TXT +short o-o.myaddr.l.google.com @ns1.google.com)
+	local ip=`wget -qO- http://ipv4.icanhazip.com; echo`
 	printf "Your IP address is: ${ip} \n"
 }
 
