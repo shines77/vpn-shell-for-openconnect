@@ -160,7 +160,7 @@ function connect() {
 	# Exclude your VPN client computer IP,
 	# OpenConnect can help us exclude the VPN server IP, so don't worry about it.
 	#
-	sudo ip route add 81.71.73.241 via 172.16.0.1 dev eth0 src 172.16.0.6
+	sudo ip route add 155.166.177.188 via 172.16.0.1 dev eth0 src 172.16.0.6
 	#
 	# Exclude your SSH terminal computer IP, if your computer IP is a Dynamic IP,
 	# you can exclude a network range like:
