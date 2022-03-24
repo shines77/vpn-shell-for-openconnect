@@ -37,6 +37,8 @@ echo "Process ID (PID) stored in "${PID_FILE}" ..."
 LOG_FILE="/tmp/${PROGRAM_NAME}.log"
 echo "Logs stored in ${LOG_FILE} ..."
 
+SCRIPT_LOG_FILE="/tmp/${PROGRAM_NAME}.script.log"
+
 # echo "PROGRAM_SOURCE: ${0}"
 # echo "PROGRAM_DIR: ${PROGRAM_DIR}"
 # echo "PROGRAM_NAME: ${PROGRAM_NAME}"
@@ -54,9 +56,9 @@ BACKGROUND=true
 #
 source "${PROGRAM_DIR}"/open-vpn-conf.sh
 
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
-echo "`date`: open-vpn-cmd.sh start to running." >> "${LOG_FILE}" 2>&1
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
+echo "`date`: open-vpn-cmd.sh start to running." >> "${SCRIPT_LOG_FILE}" 2>&1
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
 
 set -x
 
@@ -145,6 +147,7 @@ function connect() {
 	esac
 		
 	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..."
+	echo "`date`: Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..." >> "${SCRIPT_LOG_FILE}" 2>&1
 
 	set -xv
 	if [ "${VPN_SERVER_CERTIFICATE}" = "" ]; then
@@ -208,6 +211,8 @@ function connect() {
 }
 
 function stop()	{
+	echo "`date`: Stopping the openconnect ..." >> "${SCRIPT_LOG_FILE}" 2>&1
+
 	if is_vpn_running; then
 		echo "OpenConnect VPN is running ..."
 		echo "Removing ${PID_FILE} ..."
@@ -238,17 +243,17 @@ function print_info() {
 }
 
 function set_add_xv() {
-	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
-	echo "`date`: openconnect start to running." >> "${LOG_FILE}" 2>&1
-	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
+	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
+	echo "`date`: openconnect start to running." >> "${SCRIPT_LOG_FILE}" 2>&1
+	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
 	set -xv
 }
 
 function set_remove_v() {
 	set +v
-	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
-	echo "`date`: openconnect start have done." >> "${LOG_FILE}" 2>&1
-	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
+	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
+	echo "`date`: openconnect start have done." >> "${SCRIPT_LOG_FILE}" 2>&1
+	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
 }
 
 function is_network_available() {
@@ -296,6 +301,6 @@ case "$1" in
 		;;
 esac
 
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
-echo "`date`: open-vpn-cmd.sh end." >> "${LOG_FILE}" 2>&1
-echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
+echo "`date`: open-vpn-cmd.sh end." >> "${SCRIPT_LOG_FILE}" 2>&1
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${SCRIPT_LOG_FILE}" 2>&1
