@@ -39,9 +39,11 @@ if [ -d "${Install_To_Folder}" ]; then
 	echo "------------------------------------------------------------------------------------"
 	echo "[vpn-shell-for-openconnect]: Install success. already install to ${Install_To_Folder} folder."
 	echo "------------------------------------------------------------------------------------"
+	set -x
 else
 	set +x
 	echo "------------------------------------------------------------------------------------"
 	echo "[vpn-shell-for-openconnect]: Install failed, ${Install_To_Folder} folder is not existed."
 	echo "------------------------------------------------------------------------------------"
+	set -x
 fi
