@@ -47,12 +47,16 @@ echo "Logs stored in ${LOG_FILE} ..."
 #
 
 # --background	 Continue in background	after startup
-BACKGROUND=false
+BACKGROUND=true
 
 #
 # Include VPN server configuration file
 #
 source "${PROGRAM_DIR}"/open-vpn-conf.sh
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
+echo "`date`: open-vpn-cmd.sh start to running." >> "${LOG_FILE}" 2>&1
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
 
 set -x
 
@@ -243,7 +247,7 @@ function set_add_xv() {
 function set_remove_v() {
 	set +v
 	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
-	echo "`date`: openconnect have finished start." >> "${LOG_FILE}" 2>&1
+	echo "`date`: openconnect start have done." >> "${LOG_FILE}" 2>&1
 	echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
 }
 
@@ -291,3 +295,7 @@ case "$1" in
 		exit 0
 		;;
 esac
+
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
+echo "`date`: open-vpn-cmd.sh end." >> "${LOG_FILE}" 2>&1
+echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" >> "${LOG_FILE}" 2>&1
