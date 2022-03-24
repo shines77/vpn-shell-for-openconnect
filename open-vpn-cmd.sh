@@ -17,7 +17,7 @@
 #
 
 # Resolve $PROGRAM_SOURCE until the file is no longer a symlink
-PROGRAM_SOURCE="$0"
+PROGRAM_SOURCE="${0}"
 while [ -h "$PROGRAM_SOURCE" ]; do
     PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
     PROGRAM_SOURCE="$(readlink "$PROGRAM_SOURCE")"
@@ -29,13 +29,19 @@ PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
 PROGRAM_NAME=$(basename	$0)
 echo "Starting ${PROGRAM_NAME} ..."
 
+CMD_ACTION="${1}"
+
 # PID_FILE="${PWD}/${PROGRAM_NAME}.pid"
 PID_FILE="/run/${PROGRAM_NAME}.pid"
-echo "Process ID (PID) stored in "${PID_FILE}" ..."
+if [ CMD_ACTION == "start" ]; then
+	echo "Process ID (PID) stored in "${PID_FILE}" ..."
+fi
 
 # LOG_FILE="${PWD}/${PROGRAM_NAME}.log"
 LOG_FILE="/tmp/${PROGRAM_NAME}.log"
-echo "Logs stored in ${LOG_FILE} ..."
+if [ CMD_ACTION == "start" ]; then
+	echo "Logs stored in ${LOG_FILE} ..."
+fi
 
 SCRIPT_LOG_FILE="/tmp/${PROGRAM_NAME}.script.log"
 
@@ -292,7 +298,7 @@ function print_current_ip_address() {
 	printf "Your IP address is: ${ip} \n"
 }
 
-case "$1" in
+case "${1}" in
 	start)
 		start
 		;;
