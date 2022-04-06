@@ -68,7 +68,7 @@ use_my_ip_route_settings=1
 ## >>
 ##
 function add_ip_route_settings() {
-	if use_my_ip_route_settings == 1; then
+	if [ $use_my_ip_route_settings -eq 1 ]; then
 		#
 		# Exclude your VPN client computer IP,
 		# OpenConnect can help us exclude the VPN server IP, so don't worry about it.
