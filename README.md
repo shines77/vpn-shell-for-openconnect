@@ -87,17 +87,17 @@ install.sh <folder_install_to>
 Example:
 
 ```bash
-# Install to current user's bin folder
-sudo mkdir ~/bin
-sudo ./install.sh ~/bin
+# Install to system /usr/sbin folder
+sudo ./install.sh /usr/sbin
 
 or
 
-# Install to system bin folder
-sudo ./install.sh /usr/bin
+# Install to current user's bin folder
+sudo mkdir ~/bin
+sudo ./install.sh ~/bin
 ```
 
-Note: The path of <folder_install_to> must be existed. If don't specified <folder_install_to>, the default value is "`~/bin`".
+Note: The path of <folder_install_to> must be existed. If you don't specified <folder_install_to>, the default value is "`/usr/sbin`".
 
 The installation steps are as follows:
 
@@ -118,25 +118,25 @@ alias open-vpn-cmd='/usr/bin/open-vpn-cmd.sh'
 #### 4.1. Connect VPN
 
 ```shell
-open-vpn-cmd start
+open-vpn-cmd.sh start
 ```
 
 #### 4.2. Disconnect VPN
 
 ```shell
-open-vpn-cmd stop
+open-vpn-cmd.sh stop
 ```
 
 #### 4.3. Restart VPN
 
 ```shell
-open-vpn-cmd restart
+open-vpn-cmd.sh restart
 ```
 
 #### 4.4. Query VPN status
 
 ```shell
-open-vpn-cmd status
+open-vpn-cmd.sh status
 ```
 
 ## Original usage

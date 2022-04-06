@@ -21,7 +21,7 @@
 if [ -n "${1}" ]; then
 	Install_To_Folder="${1}"
 else
-	Install_To_Folder="${HOME}/bin"
+	Install_To_Folder="${HOME}/sbin"
 	if [ ! -d "${Install_To_Folder}" ]; then
 		sudo mkdir "${Install_To_Folder}"
 	fi
