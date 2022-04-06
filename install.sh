@@ -46,7 +46,7 @@ fi
 if [ -n "${1}" ]; then
 	Install_To_Folder="${1}"
 else
-	Install_To_Folder="${HOME}/sbin"
+	Install_To_Folder="/usr/sbin"
 	if [ ! -d "${Install_To_Folder}" ]; then
 		sudo mkdir "${Install_To_Folder}"
 	fi
