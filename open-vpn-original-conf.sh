@@ -16,6 +16,8 @@
 # From: https://github.com/sorinipate/vpn-up-for-openconnect/blob/main/vpn-up.command
 #
 
+##########################################################################################
+
 #
 # VPN server configuration
 #
@@ -49,3 +51,37 @@ export VPN2_PASSWD="<vpn.password>"
 export VPN2_PROTOCOL="<vpn.protocol>"
 # SHA1
 export VPN2_SERVER_CERTIFICATE=""
+
+##########################################################################################
+
+## 
+## Whether use your ip route settings? default value is 1 (enable).
+## If you are not connecting to a server through SSH terminal, please set to 0.
+## 0: disable, 1: enable
+##
+use_my_ip_route_settings=1
+
+##
+## >>
+## >> Your ip route exclude settings, please edit it according to your situation. <<
+## >> If you are not connecting to a server through SSH terminal, please ignore it.
+## >>
+##
+function add_ip_route_settings() {
+	if use_my_ip_route_settings == 1; then
+		#
+		# Exclude your VPN client computer IP,
+		# OpenConnect can help us exclude the VPN server IP, so don't worry about it.
+		#
+		sudo ip route add 155.166.177.188 via 172.16.0.1 dev eth0 src 172.16.0.6
+		#
+		# Exclude your SSH terminal computer IP, if your computer IP is a Dynamic IP,
+		# you can exclude a network range like:
+		# 120.0.0.0/8, or 124.0.0.0/8
+		#
+		sudo ip route add 120.0.0.0/8 via 172.16.0.1 dev eth0 src 172.16.0.6
+		sudo ip route add 124.0.0.0/8 via 172.16.0.1 dev eth0 src 172.16.0.6
+	fi
+}
+
+##########################################################################################

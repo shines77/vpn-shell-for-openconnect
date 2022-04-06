@@ -185,18 +185,7 @@ function connect() {
 	echo "Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..."
 	echo "`date`: Starting the ${VPN_NAME} on ${VPN_HOST} using ${VPN_PROTOCOL_DESCRIPTION} ..." >> "${SCRIPT_LOG_FILE}" 2>&1
 
-	#
-	# Exclude your VPN client computer IP,
-	# OpenConnect can help us exclude the VPN server IP, so don't worry about it.
-	#
-	sudo ip route add 155.166.177.188 via 172.16.0.1 dev eth0 src 172.16.0.6
-	#
-	# Exclude your SSH terminal computer IP, if your computer IP is a Dynamic IP,
-	# you can exclude a network range like:
-	# 120.0.0.0/8, or 124.0.0.0/8
-	#
-	sudo ip route add 120.0.0.0/8 via 172.16.0.1 dev eth0 src 172.16.0.6
-	sudo ip route add 124.0.0.0/8 via 172.16.0.1 dev eth0 src 172.16.0.6
+	add_ip_route_settings
 
 	set -xv
 	if [ "${VPN_SERVER_CERTIFICATE}" = "" ]; then
