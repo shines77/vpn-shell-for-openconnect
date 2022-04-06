@@ -21,9 +21,9 @@
 if [ ! -f "${PWD}/open-vpn-my-conf.sh" ]; then
 	echo "--------------------------------------------------------------"
 	echo ""
-	echo "[vpn-shell-for-openconnect]:"
+	echo "[vpn-shell-for-openconnect] Error:"
 	echo ""
-	echo "  Error: The [open-vpn-my-conf.sh] file does not exist."
+	echo "  The [open-vpn-my-conf.sh] file does not exist."
 	echo ""
 	echo "--------------------------------------------------------------"
 	echo ""
