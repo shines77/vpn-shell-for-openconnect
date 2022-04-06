@@ -27,9 +27,9 @@ done
 PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
 
 PROGRAM_NAME=$(basename	$0)
-echo "Starting ${PROGRAM_NAME} ..."
+echo "Starting ${PROGRAM_DIR}/${PROGRAM_NAME} ..."
 
-if [ ! -f "${PROGRAM_DIR}/open-vpn-my-conf.sh" ]; then
+if [ ! -f "${PROGRAM_DIR}/open-vpn-conf.sh" ]; then
 	echo "--------------------------------------------------------------"
 	echo ""
 	echo "[vpn-shell-for-openconnect] Error:"
