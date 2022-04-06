@@ -29,6 +29,35 @@ PROGRAM_DIR="$( cd -P "$( dirname "$PROGRAM_SOURCE" )" && pwd )"
 PROGRAM_NAME=$(basename	$0)
 echo "Starting ${PROGRAM_NAME} ..."
 
+if [ ! -f "${PROGRAM_DIR}/open-vpn-my-conf.sh" ]; then
+	echo "--------------------------------------------------------------"
+	echo ""
+	echo "[vpn-shell-for-openconnect]:"
+	echo ""
+	echo "  Error: The [open-vpn-conf.sh] file does not exist."
+	echo ""
+	echo "--------------------------------------------------------------"
+	echo ""
+	echo "  Change the path to your [vpn-shell-for-openconnect] git repo dir:"
+	echo ""
+	echo "    cd <Your git repository dir>/vpn-shell-for-openconnect"
+	echo ""
+	echo "  Copy the original configuration file:"
+	echo ""
+	echo "    cp ./open-vpn-original-conf.sh ./open-vpn-my-conf.sh"
+	echo ""
+	echo "  And edit it use your configuration:"
+	echo ""
+	echo "    vim ./open-vpn-my-conf.sh"
+	echo ""
+	echo "  Then install the configuration file:"
+	echo ""
+	echo "    ./install.sh"
+	echo ""
+	echo "--------------------------------------------------------------"
+	exit 1
+fi
+
 CMD_ACTION="${1}"
 
 # PID_FILE="${PWD}/${PROGRAM_NAME}.pid"

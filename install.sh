@@ -18,6 +18,31 @@
 
 # set -x
 
+if [ ! -f "${PWD}/open-vpn-my-conf.sh" ]; then
+	echo "--------------------------------------------------------------"
+	echo ""
+	echo "[vpn-shell-for-openconnect]:"
+	echo ""
+	echo "  Error: The [open-vpn-my-conf.sh] file does not exist."
+	echo ""
+	echo "--------------------------------------------------------------"
+	echo ""
+	echo "  Please copy the original configuration file:"
+	echo ""
+	echo "    cp ./open-vpn-original-conf.sh ./open-vpn-my-conf.sh"
+	echo ""
+	echo "  And edit it use your configuration:"
+	echo ""
+	echo "    vim ./open-vpn-my-conf.sh"
+	echo ""
+	echo "  Then re-run the install script:"
+	echo ""
+	echo "    ./install.sh"
+	echo ""
+	echo "--------------------------------------------------------------"
+	exit 1
+fi
+
 if [ -n "${1}" ]; then
 	Install_To_Folder="${1}"
 else
@@ -29,7 +54,7 @@ fi
 
 if [ -d "${Install_To_Folder}" ]; then
 	sudo cp -i ${PWD}/open-vpn-cmd.sh ${Install_To_Folder}/open-vpn-cmd.sh
-	sudo cp -i ${PWD}/open-vpn-conf.sh ${Install_To_Folder}/open-vpn-conf.sh
+	sudo cp -i ${PWD}/open-vpn-my-conf.sh ${Install_To_Folder}/open-vpn-conf.sh
 
 	sudo chmod +x ${Install_To_Folder}/open-vpn-cmd.sh
 

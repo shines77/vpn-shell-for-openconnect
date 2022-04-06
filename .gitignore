@@ -36,3 +36,6 @@ Icon?
 # Ignore Zip or Rar files
 *.zip
 *.rar
+
+# Ignore your configuration file
+./open-vpn-my-conf.sh

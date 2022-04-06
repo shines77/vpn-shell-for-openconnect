@@ -34,10 +34,16 @@ And I made the following modifications:
 
 ## Sample VPN configuration
 
+Copy the original configurtion file to `open-vpn-my-conf.sh`:
+
+```shell
+cp ./open-vpn-original-conf.sh ./open-vpn-my-conf.sh
+```
+
 Edit your configurtion file:
 
 ```shell
-vim open-vpn-conf.sh
+vim open-vpn-my-conf.sh
 ```
 
 The content is modified to like below:
@@ -78,7 +84,21 @@ Two ways:
 
 ### 3. Install this script
 
-Use this command to install, format is:
+Copy the original configurtion file to `open-vpn-my-conf.sh`:
+
+```shell
+cp ./open-vpn-original-conf.sh ./open-vpn-my-conf.sh
+```
+
+And then, edit your configurtion file:
+
+```shell
+vim open-vpn-my-conf.sh
+```
+
+The example configurtion file setting like "`Sample VPN configuration`" section above.
+
+Finally, use this command to install, syntax is:
 
 ```shell
 install.sh <folder_install_to>
@@ -87,8 +107,13 @@ install.sh <folder_install_to>
 Example:
 
 ```bash
-# Install to system /usr/sbin folder
-sudo ./install.sh /usr/sbin
+# Install to default folder: /usr/sbin
+sudo ./install.sh
+
+or
+
+# Install to system /usr/bin folder
+sudo ./install.sh /usr/bin
 
 or
 
@@ -106,7 +131,7 @@ The installation steps are as follows:
 cd /xxxxxx/yyyyy/vpn-shell-for-openconnect
 
 sudo cp open-vpn-cmd.sh /usr/bin/open-vpn-cmd.sh
-sudo cp open-vpn-conf.sh /usr/bin/open-vpn-conf.sh
+sudo cp open-vpn-my-conf.sh /usr/bin/open-vpn-conf.sh
 
 sudo chmod +x /usr/bin/open-vpn-cmd.sh
 
